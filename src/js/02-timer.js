@@ -32,15 +32,20 @@ const options = {
       btnStart.addEventListener('click', timer);
       isActive = true;
       function timer() {
-        setInterval(() => {
+        const intervalId = setInterval(() => {
           const currentTime = Date.now();
-          const deltaTime = selectedDates[0] - currentTime;
+          let deltaTime = selectedDates[0] - currentTime;; 
+          if (deltaTime > 0) {
           const { days, hours, minutes, seconds } = convertMs(deltaTime);
           dataDays.textContent = days;
           dataHours.textContent = hours;
           dataMin.textContent = minutes;
           dataSec.textContent = seconds;
-        }, 1000)
+          } else {
+            Notiflix.Notify.success('End of countdown')
+            clearInterval(intervalId);
+          }
+        }, 20)
       };
     } else Notiflix.Notify.warning("Please choose a date in the future");
     

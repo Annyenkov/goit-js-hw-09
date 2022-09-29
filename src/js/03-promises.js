@@ -12,6 +12,9 @@ refs.form.addEventListener('submit', (evt) => {
   evt.preventDefault();
   let position = 0;
   let delayCount = Number(delay.value);
+  if (Number(delay.value) < 0 || Number(step.value) < 0) {
+    return Notiflix.Notify.warning('Numbers must be positive');
+  }
   for (let i = 0; i < amount.value; i += 1) {
     position += 1
     if (position !== 1) {
@@ -26,7 +29,6 @@ refs.form.addEventListener('submit', (evt) => {
     });
   }
 } )
-
 
 function createPromise(position, delay) {
   const shouldResolve = Math.random() > 0.3;
